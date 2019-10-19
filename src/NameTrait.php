@@ -25,4 +25,16 @@ trait NameTrait
         }
         $this->named = $ret;
     }
+
+    protected function namedT()
+    {
+        $p = $this->named;
+        $ret = [];
+        foreach ($p as $kRow => $row) {
+            foreach ($row as $kCol => $col) {
+                $ret[$kCol][$kRow] = $col;
+            }
+        }
+        $this->namedT = $ret;
+    }
 }

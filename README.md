@@ -26,10 +26,25 @@ $s->getPruned();
 //  [4, 5, 6],
 //  [7, 8, 9],
 // ]
+$s->getPrunedT(); # transpose
+// => [
+//  [1, 4, 7],
+//  [2, 5, 8],
+//  [null, 6, 9],
+// ]
 $s->getNamed();
 //  ['a' => 1, 'b' => [2, null]],
 //  ['a' => 4, 'b' => [5, 6]],
 //  ['a' => 7, 'b' => [8, 9],
 // ]
+$s->getNamedT(); # transpose
+//  [
+//      'a' => [1, 4, 7],
+//      'default' => [[2, 3], [5, 6], [8, 9]],
+//  ],
+// ]
+
 ```
 
+# Caution
+This Library only treats 2 dimensional array.

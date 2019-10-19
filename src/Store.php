@@ -23,6 +23,10 @@ class Store
     protected $pruned = [];
     /** @var array $named */
     protected $named = [];
+    /** @var array $prunedT */
+    protected $prunedT = [];
+    /** @var array $namedT */
+    protected $namedT = [];
 
     /**
      * @param array $array
@@ -47,9 +51,31 @@ class Store
     /**
      * @return array
      */
+    public function getPrunedT() : array
+    {
+        if (empty($this->prunedT) && !empty($this->pruned)) {
+            $this->prunedT();
+        }
+        return $this->prunedT;
+    }
+
+    /**
+     * @return array
+     */
     public function getNamed() : array
     {
         return $this->named;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNamedT() : array
+    {
+        if (empty($this->namedT) && !empty($this->named)) {
+            $this->namedT();
+        }
+        return $this->namedT;
     }
 
     /**
