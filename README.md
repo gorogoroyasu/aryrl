@@ -1,6 +1,6 @@
 # Aryrl
-PHP Array Regularizer
-
+PHP Array Regularizer  
+[![CircleCI](https://circleci.com/gh/gorogoroyasu/aryrl.svg?style=svg)](https://circleci.com/gh/gorogoroyasu/aryrl)
 # Usage
 
 ```php
