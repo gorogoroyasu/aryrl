@@ -20,6 +20,19 @@ class StoreTest extends TestCase
         $this->assertEquals($s->getPruned(), $expected);
     }
 
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider providePrune
+     */
+    public function testPruneT($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $expected = call_user_func_array('array_map',array_merge(array(null), $expected));
+        $this->assertEquals($s->getPrunedT(), $expected);
+    }
+
     # PROVIDERS
     #
     #
@@ -155,6 +168,35 @@ class StoreTest extends TestCase
                 [
                     'columns' => ['x' => 'a'],
                     'others' => 'special'
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamedT
+     */
+    public function testNamedT($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertEquals($s->getNamedT(), $expected);
+    }
+
+    public function provideNamedT()
+    {
+        return [
+            [
+                // only one column is named.
+                [
+                    'a' => [1, 4, 7],
+                    'default' => [[2, 3], [5, 6], [8, 9]],
+                ],
+                self::$BASIC_ARY,
+                [
+                    'columns' => ['a'],
                 ]
             ],
         ];

@@ -74,4 +74,15 @@ trait PruneTrait
         $this->pruned = array_slice($coled, 0, $maxRow);
     }
 
+    protected function prunedT()
+    {
+        $p = $this->pruned;
+        $ret = [];
+        foreach ($p as $kRow => $row) {
+            foreach ($row as $kCol => $col) {
+                $ret[$kCol][$kRow] = $col;
+            }
+        }
+        $this->prunedT = $ret;
+    }
 }
