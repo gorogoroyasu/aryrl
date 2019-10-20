@@ -1,6 +1,7 @@
 <?php
 
 namespace Arylr;
+use InvalidArgumentException;
 
 trait NameTrait
 {
@@ -36,5 +37,46 @@ trait NameTrait
             }
         }
         $this->namedT = $ret;
+    }
+
+    private function uniq($key)
+    {
+        $named = $this->getNamedT();
+
+        if ($key == $this->options['others']) {
+            return [];
+        }
+
+        $uniqueness = [];
+        foreach ($named[$key] as $k => $item) {
+            $uniqueness[$item][] = $k;
+        }
+
+        return array_filter($uniqueness, function ($v) {
+            return count($v) >= 2;
+        });
+    }
+
+    protected function namedUniqueness($columnName=null)
+    {
+        if (!is_null($columnName)) {
+            return $this->uniq($columnName);
+        }
+
+        $named = $this->getNamedT();
+        $keys = array_keys($named);
+        $uniq = [];
+        foreach ($keys as $key) {
+            $u = $this->uniq($key);
+            if (!empty($u)) {
+                $uniq[$key] = $u;
+            }
+        }
+        return $uniq;
+    }
+
+    protected function nameUnique($columnName=null)
+    {
+        return empty($this->namedUniqueness($columnName));
     }
 }

@@ -83,6 +83,24 @@ class Store
     }
 
     /**
+     * @param null $columnName
+     * @return array
+     */
+    public function getNamedUniqueness($columnName=null) : array
+    {
+        return $this->namedUniqueness($columnName);
+    }
+
+    /**
+     * @param null $columnName
+     * @return bool
+     */
+    public function isNameUnique($columnName=null) : bool
+    {
+        return $this->nameUnique($columnName);
+    }
+
+    /**
      * @param array $options
      */
     private function setOptions(array $options)
@@ -103,6 +121,10 @@ class Store
                 $cs[] = $v;
             }
             $opt['columns'] = $cs;
+        }
+
+        if (in_array($opt['others'], $opt['columns'])) {
+            throw new InvalidArgumentException("\$options['others'] ${opt['others']} is also used in \$options['columns'] ${opt['columns']}.");
         }
         $this->options = $opt;
     }

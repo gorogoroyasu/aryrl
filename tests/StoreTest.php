@@ -202,4 +202,123 @@ class StoreTest extends TestCase
         ];
     }
 
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamedUniqueness
+     */
+    public function testNamedUniqueness($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertEquals($s->getNamedUniqueness(), $expected);
+    }
+
+    public function provideNamedUniqueness()
+    {
+        return [
+            [
+                // only one column is named.
+                [
+                    'a' => [1 => [0, 1, 2]],
+                    'b' => [2 => [0, 1, 2]],
+                    'c' => [3 => [0, 1, 2]],
+                ],
+                [
+                    [1, 2, 3],
+                    [1, 2, 3],
+                    [1, 2, 3],
+                ],
+                ['columns' => ['a', 'b', 'c']]
+            ],
+            [
+                // only one column is named.
+                [
+                    'a' => [1 => [0, 1]],
+                    'b' => [2 => [0, 1]],
+                    'c' => [3 => [0, 1]],
+                ],
+                [
+                    [1, 2, 3],
+                    [1, 2, 3],
+                    [2, 3, 4],
+                ],
+                ['columns' => ['a', 'b', 'c']]
+            ],
+            [
+                // only one column is named.
+                [
+                    'a' => [1 => [0, 1]],
+                    'b' => [2 => [0, 1]],
+                ],
+                [
+                    [1, 2, 3, 4],
+                    [1, 2, 3, 4],
+                    [2, 3, 4, 4],
+                ],
+                ['columns' => ['a', 'b'], 'others' => 'xxx']
+            ],
+        ];
+    }
+
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamedUniqueness
+     */
+    public function testNamedUniquenessWithKey($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertEquals($s->getNamedUniqueness('a'), $expected['a']);
+    }
+
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamedUniqueness
+     */
+    public function testIsNameUniqueFalse($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertFalse($s->isNameUnique());
+    }
+
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamedUniqueness
+     */
+    public function testIsNameUniqueFalseWithKey($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertFalse($s->isNameUnique('a'));
+    }
+
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamed
+     */
+    public function testIsNameUniqueTrue($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertTrue($s->isNameUnique());
+    }
+
+    /**
+     * @param array $expected
+     * @param array $ary
+     * @param array $option
+     * @dataProvider provideNamed
+     */
+    public function testIsNameUniqueTrueWithKey($expected, $ary, $option)
+    {
+        $s = new Store($ary, $option);
+        $this->assertTrue($s->isNameUnique('a'));
+    }
+
 }
