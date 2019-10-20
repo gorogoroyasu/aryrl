@@ -3,6 +3,8 @@ PHP Array Regularizer
 [![CircleCI](https://circleci.com/gh/gorogoroyasu/aryrl.svg?style=svg)](https://circleci.com/gh/gorogoroyasu/aryrl)
 # Usage
 
+There are more samples in [tests/StoreTest.php](https://github.com/gorogoroyasu/aryrl/blob/master/tests/StoreTest.php)
+
 ```php
 
 use Aryrl/Store;
@@ -44,7 +46,25 @@ $s->getNamedT(); # transpose
 //  ],
 // ]
 
+/** Checking uniqueness is only implemented for named property */
+$array = [
+    [1, 2, 3],
+    [1, 2, 3],
+    [2, 3, 4],
+];
+$s = Store($array, $options);
+$s->namedUniqueness();
+//  [
+//      'a' => [1 => [0, 1]],
+//      'b' => [2 => [0, 1]],
+//      'c' => [3 => [0, 1]],
+//  ],
+
+$s->namedUniqueness('a');
+//  [1 => [0, 1]],
+
 ```
+
 
 # Caution
 This Library only treats 2 dimensional array.
