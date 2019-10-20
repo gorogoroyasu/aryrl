@@ -36,8 +36,6 @@ class Store
     {
         $this->setArray($array);
         $this->setOptions($options);
-        $this->prune();
-        $this->name();
     }
 
     /**
@@ -45,6 +43,9 @@ class Store
      */
     public function getPruned() : array
     {
+        if (empty($this->pruned)) {
+            $this->prune();
+        }
         return $this->pruned;
     }
 
@@ -53,7 +54,7 @@ class Store
      */
     public function getPrunedT() : array
     {
-        if (empty($this->prunedT) && !empty($this->pruned)) {
+        if (empty($this->prunedT) && !empty($this->getPruned())) {
             $this->prunedT();
         }
         return $this->prunedT;
@@ -64,6 +65,9 @@ class Store
      */
     public function getNamed() : array
     {
+        if (empty($this->named) && !empty($this->getPruned())) {
+            $this->name();
+        }
         return $this->named;
     }
 
@@ -72,7 +76,7 @@ class Store
      */
     public function getNamedT() : array
     {
-        if (empty($this->namedT) && !empty($this->named)) {
+        if (empty($this->namedT) && !empty($this->getNamed())) {
             $this->namedT();
         }
         return $this->namedT;
