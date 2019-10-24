@@ -331,6 +331,7 @@ class StoreTest extends TestCase
         $s = new Store($a, ['drop' => true]);
         $this->assertEquals([[1], [2], [3]], $s->getPruned());
     }
+
     public function testDropRowsTrue()
     {
         $a = self::$BASIC_ARY;

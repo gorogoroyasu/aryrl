@@ -63,6 +63,21 @@ $s->namedUniqueness();
 $s->namedUniqueness('a');
 //  [1 => [0, 1]],
 
+
+/** Checking uniqueness is only implemented for named property */
+$array = [
+    [1, 2, null],
+    [1, 2, null],
+    [null, null, null],
+];
+$s = Store($array, ['drop' => true]);
+$s->getPruned();
+
+// => [
+//  [1, 2],
+//  [4, 5],
+// ]
+
 ```
 
 
