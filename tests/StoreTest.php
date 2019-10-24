@@ -321,4 +321,23 @@ class StoreTest extends TestCase
         $this->assertTrue($s->isNameUnique('a'));
     }
 
+    public function testDropCorsTrue()
+    {
+        $a = [
+            [1, null, null],
+            [2, null, null],
+            [3, null, null],
+            ];
+        $s = new Store($a, ['drop' => true]);
+        $this->assertEquals([[1], [2], [3]], $s->getPruned());
+    }
+
+    public function testDropRowsTrue()
+    {
+        $a = self::$BASIC_ARY;
+        $a[] = [null, null, null];
+        $a[] = [null, null, null];
+        $s = new Store($a, ['drop' => true]);
+        $this->assertEquals(self::$BASIC_ARY, $s->getPruned());
+    }
 }

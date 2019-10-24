@@ -18,6 +18,7 @@ class Store
         'fill' => null,
         'columns' => [],
         'others' => 'default',
+        'drop' => false
     ];
     /** @var array $pruned */
     protected $pruned = [];
