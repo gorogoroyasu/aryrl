@@ -15,11 +15,42 @@ trait PruneTrait
             return ['row' => $optRow, 'col' => $optCol];
         }
 
+        $array = $this->array;
+
         $counts = array_map(function ($a) {
-            return count($a);
-        }, $this->array);
-        $maxRow = count($counts);
+            $count = 0;
+            # drop empty column at the end of columns
+            if ($this->options['drop']) {
+                foreach ($a as $k => $v) {
+                    if ($v !== $this->options['fill']) {
+                        $count = $k + 1;
+                    }
+                }
+            } else {
+                $count = count($a);
+            }
+            return $count;
+        }, $array);
+
+        # drop empty row at the end of rows
+        if ($this->options['drop']) {
+            $rows = -1;
+            foreach ($array as $key => $value) {
+                $u = array_unique($value);
+                if (count($u) !== 1 || array_values($u)[0] !== $this->options['fill']) {
+                    $rows = $key + 1;
+                }
+            }
+            if ($rows > 0) {
+                $array = array_slice($array, 0, $rows);
+            }
+        }
+
+
+        $maxRow = count($array);
         $maxCol = max($counts);
+
+
         if ((int)$optRow !== 0 && $optRow <= $maxRow) $maxRow = $optRow;
         if ((int)$optCol !== 0 && $optCol <= $maxCol) $maxCol = $optCol;
 
