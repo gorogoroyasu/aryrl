@@ -8,7 +8,9 @@ trait NameTrait
     protected function name()
     {
         $columns = $this->options['columns'];
-
+        if (!is_array($columns)) {
+            throw new InvalidArgumentException('parameter columns must be array.');
+        }
         $pruned = $this->pruned;
 
         $columnDefLen = count($columns);

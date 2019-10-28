@@ -185,6 +185,13 @@ class StoreTest extends TestCase
         $this->assertEquals($s->getNamedT(), $expected);
     }
 
+    public function testNamedAry()
+    {
+        $a = self::$BASIC_ARY;
+        $s = new Store($a, ['columns' => ['a'], 'others' => 'b']);
+        $this->assertEquals($s->getNamedAry('a'), [1, 4, 7]);
+    }
+
     public function provideNamedT()
     {
         return [

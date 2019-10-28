@@ -84,6 +84,17 @@ class Store
     }
 
     /**
+     * @param string $key
+     * @return array
+     */
+    public function getNamedAry(string $key): array
+    {
+        $ary = $this->getNamedT();
+
+        return $ary[$key];
+    }
+
+    /**
      * @param null $columnName
      * @return array
      */
