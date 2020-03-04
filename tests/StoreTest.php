@@ -190,6 +190,9 @@ class StoreTest extends TestCase
         $a = self::$BASIC_ARY;
         $s = new Store($a, ['columns' => ['a'], 'others' => 'b']);
         $this->assertEquals($s->getNamedAry('a'), [1, 4, 7]);
+
+        // Empty array will be returned, if $key is not in the array.
+        $this->assertEquals($s->getNamedAry('not_exist'), []);
     }
 
     public function provideNamedT()

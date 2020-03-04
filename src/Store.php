@@ -90,7 +90,9 @@ class Store
     public function getNamedAry(string $key): array
     {
         $ary = $this->getNamedT();
-
+        if (!array_key_exists($key, $ary)) {
+            return [];
+        }
         return $ary[$key];
     }
 
