@@ -48,6 +48,9 @@ trait NameTrait
         if ($key == $this->options['others']) {
             return [];
         }
+        if (!array_key_exists($key, $named)) {
+            return [];
+        }
 
         $uniqueness = [];
         foreach ($named[$key] as $k => $item) {
